@@ -1,18 +1,18 @@
 #include "sudoku-dlx.hpp"
 #include <cmath>
 
+namespace sudoku {
+
 std::vector<Column *> make_cols(int size) {
-  std::vector<Column *> cols(size * size * 4);
-  for (int i = 0; i < size * size * 4; i++) {
-    auto col = new Column();
-    cols[i] = col;
-  }
+  std::vector<Column *> cols;
+  for (int i = 0; i < size * size * 4; i++)
+    cols.push_back(new Column());
   return cols;
 }
 
 std::vector<Line *> make_lines(int size, std::vector<Column *> &cols) {
   int sqrt = std::floor(std::sqrt(size));
-  std::vector<Line *> lines(size * size * size);
+  std::vector<Line *> lines;
   std::vector<Column *> selected_cols(4);
   int block;
   for (int i = 0; i < size; i++)
@@ -23,9 +23,10 @@ std::vector<Line *> make_lines(int size, std::vector<Column *> &cols) {
         selected_cols[1] = cols[i * size + k + size * size];
         selected_cols[2] = cols[j * size + k + size * size * 2];
         selected_cols[3] = cols[block * size + k + size * size * 3];
-        auto line = new Line(selected_cols);
-        lines[(i * size + j) * size + k] = line;
+        lines.push_back(new Line(selected_cols));
       }
     }
   return lines;
 }
+
+} // namespace sudoku

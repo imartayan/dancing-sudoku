@@ -6,8 +6,8 @@ int main(int argc, char **argv) {
   if (argc > 1)
     size = atoi(argv[1]);
 
-  auto cols = make_cols(size);
-  auto lines = make_lines(size, cols);
+  auto cols = sudoku::make_cols(size);
+  auto lines = sudoku::make_lines(size, cols);
   auto problem = ExactCover(cols, lines);
   auto grid = parse_grid(size);
   for (int i = 0; i < size * size; i++) {
