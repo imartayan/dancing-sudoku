@@ -62,7 +62,7 @@ void Line::remove() {
       cell->remove();
       auto col = cell->get_col();
       col->size--;
-      if (col->has_heap())
+      if (col->heap != nullptr)
         col->heap->decrease(col, col->size);
     }
   }
@@ -75,25 +75,20 @@ void Line::restore() {
       cells[i]->restore();
       auto col = cells[i]->get_col();
       col->size++;
-      if (col->has_heap())
+      if (col->heap != nullptr)
         col->heap->increase(col, col->size);
     }
   }
 }
 
-Column::Column() : Column(nullptr) {}
-
-Column::Column(Heap<Column *, int> *h)
-    : head(new Cell(nullptr, this)), heap(h) {}
-
+Column::Column() : head(new Cell(nullptr, this)) {}
 Column::~Column() { delete head; }
 
 int Column::get_size() const { return size; }
 Cell *Column::get_head() const { return head; }
-bool Column::has_heap() const { return heap != nullptr; }
 
 std::vector<Line *> Column::remove() {
-  if (has_heap())
+  if (heap != nullptr)
     heap->remove(this);
   std::vector<Line *> stack;
   Cell *cell = head->get_next();
@@ -114,6 +109,6 @@ void Column::restore(std::vector<Line *> &stack) {
     line->restore();
     stack.pop_back();
   }
-  if (has_heap())
+  if (heap != nullptr)
     heap->restore(this);
 }

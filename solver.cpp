@@ -1,11 +1,12 @@
-#include "heap.hpp"
 #include "sudoku-dlx.hpp"
 #include "utils.hpp"
 
-bool solve(Heap<Column *, int> *heap) {
-  if (heap->is_empty())
+Heap<Column *, int> *const Column::heap = new Heap<Column *, int>;
+
+bool solve() {
+  if (Column::heap->is_empty())
     return true;
-  auto col = heap->take_min();
+  auto col = Column::heap->take_min();
   int n = col->get_size();
   if (n == 0)
     return false;
@@ -14,7 +15,7 @@ bool solve(Heap<Column *, int> *heap) {
   while (cell != head) {
     auto line = cell->get_line();
     auto stacks = line->select();
-    if (solve(heap))
+    if (solve())
       return true;
     line->unselect(stacks);
     cell = cell->get_next();
@@ -27,12 +28,11 @@ int main(int argc, char **argv) {
   if (argc > 1)
     size = atoi(argv[1]);
 
-  auto heap = new Heap<Column *, int>;
-  auto cols = make_cols(size, heap);
+  auto cols = make_cols(size);
   auto lines = make_lines(size, cols);
   for (auto col : cols)
-    heap->append(col, col->get_size());
-  heap->heapify();
+    Column::heap->append(col, col->get_size());
+  Column::heap->heapify();
 
   auto grid = parse_grid(size);
   for (int i = 0; i < size * size; i++) {
@@ -41,7 +41,7 @@ int main(int argc, char **argv) {
       lines[i * size + k - 1]->select();
   }
 
-  if (!solve(heap)) {
+  if (!solve()) {
     std::cerr << "No solution" << std::endl;
     return 1;
   }
@@ -58,6 +58,6 @@ int main(int argc, char **argv) {
     delete line;
   for (auto col : cols)
     delete col;
-  delete heap;
+  delete Column::heap;
   return 0;
 }

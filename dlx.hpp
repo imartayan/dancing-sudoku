@@ -48,16 +48,15 @@ private:
   friend Line;
   int size = 0;
   Cell *const head;
-  Heap<Column *, int> *const heap;
 
 public:
+  static Heap<Column *, int> *const heap;
+
   Column();
-  Column(Heap<Column *, int> *h);
   ~Column();
 
   int get_size() const;
   Cell *get_head() const;
-  bool has_heap() const;
 
   std::vector<Line *> remove();
   void restore(std::vector<Line *> &stack);

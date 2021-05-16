@@ -1,10 +1,10 @@
 #include "sudoku-dlx.hpp"
 #include <cmath>
 
-std::vector<Column *> make_cols(int size, Heap<Column *, int> *heap) {
+std::vector<Column *> make_cols(int size) {
   std::vector<Column *> cols(size * size * 4);
   for (int i = 0; i < size * size * 4; i++) {
-    auto col = new Column(heap);
+    auto col = new Column();
     cols[i] = col;
   }
   return cols;
