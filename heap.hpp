@@ -57,7 +57,8 @@ public:
     data.push_back(x);
     id.push_back(u);
     index[u] = i;
-    swap(i, size);
+    if (i > size)
+      swap(i, size);
     size++;
   }
 
