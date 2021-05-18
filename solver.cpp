@@ -1,4 +1,4 @@
-#include "sudoku-dlx.hpp"
+#include "sudoku.hpp"
 #include <iostream>
 
 int main(int argc, char **argv) {

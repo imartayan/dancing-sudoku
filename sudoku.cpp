@@ -1,4 +1,4 @@
-#include "sudoku-dlx.hpp"
+#include "sudoku.hpp"
 #include <cmath>
 #include <iostream>
 

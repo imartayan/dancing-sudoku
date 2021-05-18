@@ -8,7 +8,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_executable(solver
     solver.cpp
-    heap.hpp
+    sudoku.cpp sudoku.hpp
     dlx.cpp dlx.hpp
-    sudoku-dlx.cpp sudoku-dlx.hpp
+    heap.hpp
 )

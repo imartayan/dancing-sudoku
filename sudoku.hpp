@@ -1,5 +1,5 @@
-#ifndef SUDOKU_DLX_HPP
-#define SUDOKU_DLX_HPP
+#ifndef SUDOKU_HPP
+#define SUDOKU_HPP
 
 #include "dlx.hpp"
 #include <vector>
@@ -14,4 +14,4 @@ void print(ExactCover &problem, int size);
 
 } // namespace sudoku
 
-#endif // SUDOKU_DLX_HPP
+#endif // SUDOKU_HPP
