@@ -1,5 +1,6 @@
 #include "sudoku-dlx.hpp"
 #include <cmath>
+#include <iostream>
 
 namespace sudoku {
 
@@ -27,6 +28,31 @@ std::vector<Line *> make_lines(int size, std::vector<Column *> &cols) {
       }
     }
   return lines;
+}
+
+void parse(ExactCover &problem, int size) {
+  int k;
+  for (int i = 0; i < size * size; i++) {
+    std::cin >> k;
+    if (1 <= k && k <= size)
+      problem.select(i * size + k - 1);
+  }
+}
+
+void print(ExactCover &problem, int size) {
+  for (int i = 0; i < size; i++) {
+    for (int j = 0; j < size; j++) {
+      for (int k = 0; k < size; k++) {
+        if (problem.is_selected((i * size + j) * size + k)) {
+          std::cout << k + 1;
+          break;
+        }
+      }
+      if (j < size - 1)
+        std::cout << " ";
+    }
+    std::cout << std::endl;
+  }
 }
 
 } // namespace sudoku
