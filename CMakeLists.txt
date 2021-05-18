@@ -11,5 +11,4 @@ add_executable(solver
     heap.hpp
     dlx.cpp dlx.hpp
     sudoku-dlx.cpp sudoku-dlx.hpp
-    utils.cpp utils.hpp
 )
